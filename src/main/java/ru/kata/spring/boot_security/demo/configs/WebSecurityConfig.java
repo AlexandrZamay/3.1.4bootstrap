@@ -7,12 +7,8 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import ru.kata.spring.boot_security.demo.Service.UserDetailsServ;
 
 @Configuration
@@ -23,8 +19,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public WebSecurityConfig(SuccessUserHandler successUserHandler, UserDetailsServ userDetailsServ) {
         this.successUserHandler = successUserHandler;
         this.userDetailsServ = userDetailsServ;
-    }
 
+    }
+    @Bean
+    public PasswordEncoder getPasswordEncoder() {
+        if (passwordEncoder == null) {
+            passwordEncoder = new BCryptPasswordEncoder(12);
+        }
+        return passwordEncoder;
+    }
+    private PasswordEncoder passwordEncoder;
     private final UserDetailsServ userDetailsServ;
 
     @Override
@@ -41,26 +45,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll();
     }
 
-    // аутентификация inMemory
-//    @Bean
-//    @Override
-//    public UserDetailsService userDetailsService() {
-//        UserDetails user =
-//                User.withDefaultPasswordEncoder()
-//                        .username("user")
-//                        .password("user")
-//                        .roles("USER")
-//                        .build();
-//
-//        return new InMemoryUserDetailsManager(user);
-//    }
 
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsServ);
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {  //вызов метода внутри класса? ты что угашенный?
+        auth.userDetailsService(userDetailsServ).
+                passwordEncoder(getPasswordEncoder());
     }
 
-    @Bean
-    public PasswordEncoder getPasswordEncoder() {
-        return NoOpPasswordEncoder.getInstance();
-    }
+
 }

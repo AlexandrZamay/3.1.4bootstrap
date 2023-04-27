@@ -2,6 +2,7 @@ package ru.kata.spring.boot_security.demo.Service;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.Model.Role;
@@ -13,12 +14,12 @@ import java.util.List;
 
 @Service
 public class UserServiceImpl  implements  UserService {
-
-
+    private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
     @Autowired
-    public UserServiceImpl( UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
     @Transactional
     @Override
@@ -29,7 +30,7 @@ public class UserServiceImpl  implements  UserService {
             return false;
         }
         user.setRoles(Collections.singleton(new Role(1L, "ROLE_USER")));
-       // user.setPassword(bCryptPasswordEncoder.encode(user.getPassword())); //TODO хэширование пароля
+        user.setPassword(passwordEncoder.encode(user.getPassword())); //TODO хэширование пароля
         userRepository.save(user);
         return true;
     }
