@@ -14,11 +14,14 @@ import ru.kata.spring.boot_security.demo.Service.UserDetailsServ;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+    private final UserDetailsServ userDetailsServ;
     private final SuccessUserHandler successUserHandler;
+    private PasswordEncoder passwordEncoder;
     @Autowired
     public WebSecurityConfig(SuccessUserHandler successUserHandler, UserDetailsServ userDetailsServ) {
         this.successUserHandler = successUserHandler;
         this.userDetailsServ = userDetailsServ;
+
 
     }
     @Bean
@@ -28,8 +31,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         }
         return passwordEncoder;
     }
-    private PasswordEncoder passwordEncoder;
-    private final UserDetailsServ userDetailsServ;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {

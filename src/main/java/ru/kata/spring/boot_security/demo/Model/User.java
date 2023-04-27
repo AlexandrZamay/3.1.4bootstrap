@@ -1,10 +1,12 @@
 package ru.kata.spring.boot_security.demo.Model;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Set;
 
 @Entity
@@ -12,8 +14,9 @@ import java.util.Set;
 public class User implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return roles;
     }
+
 
     @Override
     public boolean isAccountNonExpired() {
@@ -53,6 +56,7 @@ public class User implements UserDetails {
 
     @Column (name = "password")
     private String password;
+
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
 
@@ -65,6 +69,15 @@ public class User implements UserDetails {
         this.yearOfBirth = yearOfBirth;
         this.username = username;
         this.password = password;
+    }
+
+    public User(String name, String email, int yearOfBirth, String username, String password, Set<Role> roles) {
+        this.name = name;
+        this.email = email;
+        this.yearOfBirth = yearOfBirth;
+        this.username = username;
+        this.password = password;
+        this.roles = roles;
     }
 
     public Set<Role> getRoles() {

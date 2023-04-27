@@ -26,14 +26,14 @@ public class StartPageController {
         return "hello";
     }
 
-    @GetMapping("/showUserInfo")
-    public String showUserInfo() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User userDetails = (User) authentication.getPrincipal();
-        System.out.println(userDetails.getUsername());
-        System.out.println(passwordEncoder.encode("123"));
-
-        return "hello";
-    }
+//    @GetMapping("/showUserInfo")
+//    public String showUserInfo() {
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        User userDetails = (User) authentication.getPrincipal();
+//        //System.out.println(userDetails.getUsername());
+//        //System.out.println(passwordEncoder.encode("123"));
+//
+//        return "hello";
+//    }
 
 }

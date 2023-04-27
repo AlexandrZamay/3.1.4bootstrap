@@ -6,23 +6,32 @@
 </head>
 <body>
 
-<form th:method="POST" th:action="@{/list}" th:object="${user}">
+<form th:method="POST" th:action="@{/admin}" th:object="${user}">
   <label for="name">Enter name: </label>
   <input type="text" th:field="*{name}" id="name"/>
+
+  <br/>
 
   <label for="yearOfBirth">Set year of birth: </label>
   <input type="text" th:field="*{yearOfBirth}" id="yearOfBirth"/>
 
+  <br/>
+
   <label for="email">Enter email: </label>
   <input type="text" th:field="*{email}" id="email"/>
 
+  <br/>
+
   <label for="username">Enter Username: </label>
   <input type="text" th:field="*{username}" id="username"/>
+
+  <br/>
 
   <label for="password">Set Password: </label>
   <input type="text" th:field="*{password}" id="password"/>
 
   <br/>
+
   <input type="submit" value="Create!"/>
 </form>
 
