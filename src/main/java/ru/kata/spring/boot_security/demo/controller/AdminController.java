@@ -30,7 +30,7 @@ public class AdminController {
     public String show(@PathVariable("id")int id, Model model) {
 
         model.addAttribute("user", userService.getUser(id));
-        return "userPage";
+        return "pageForAdmin";
     }
 
     @GetMapping("/{id}/edit")
