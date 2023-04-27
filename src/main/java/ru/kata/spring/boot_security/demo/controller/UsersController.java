@@ -2,6 +2,8 @@ package ru.kata.spring.boot_security.demo.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Role;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +15,7 @@ import ru.kata.spring.boot_security.demo.Service.UserService;
 @RequestMapping("/list")
 public class UsersController {
 
+
     private final UserService userService;
     @Autowired
     public UsersController(UserService userService) {
@@ -22,6 +25,8 @@ public class UsersController {
     @GetMapping()
     public String hello(Model model) {
         model.addAttribute("users", userService.getAllUsers());
+
+
         return "usersList";
     }
     @GetMapping("/{id}")
@@ -55,7 +60,7 @@ public class UsersController {
         userService.update(id, user);
         return "redirect:/list";
     }
-
+    @Role(2)
     @DeleteMapping("/{id}")
     public String delete(@PathVariable("id")int id) {
         userService.delete(id);
