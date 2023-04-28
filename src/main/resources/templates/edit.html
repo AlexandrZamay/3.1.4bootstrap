@@ -29,7 +29,7 @@
   <p></p>
 
   <label for="password">Edit Password: </label>
-  <input type="text" th:field="*{password}" id="password"/>
+  <input type="password" th:field="*{password}" id="password"/>
 
   <p></p>
 
@@ -38,6 +38,13 @@
   <br/>
   <input type="submit" value="Edit"/>
 </form>
+
+<p/>
+<hr/>
+<form th:method="GET" th:action="@{/logout}">
+  <input type="submit" value="*LOGOUT*"/>
+</form>
+
 
 </body>
 </html>
