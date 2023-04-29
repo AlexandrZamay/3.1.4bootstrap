@@ -1,23 +1,26 @@
 package ru.kata.spring.boot_security.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Role;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.Model.User;
 import ru.kata.spring.boot_security.demo.Service.UserService;
-import org.springframework.web.bind.annotation.RequestMapping;
+import ru.kata.spring.boot_security.demo.util.UserValidator;
+
+import javax.validation.Valid;
+
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
-
-
+    private final UserValidator userValidator;
     private final UserService userService;
 
     @Autowired
-    public AdminController(UserService userService) {
+    public AdminController(UserService userService, UserValidator userValidator) {
         this.userService = userService;
+        this.userValidator = userValidator;
     }
     @GetMapping()
     public String userList(Model model) {
@@ -59,7 +62,11 @@ public class AdminController {
     }
 
     @PostMapping()
-    public String create(@ModelAttribute ("user")User user) {
+    public String create(@ModelAttribute ("user")@Valid User user, BindingResult bindingResult, Model model) {
+        userValidator.validate(user, bindingResult);
+        if (bindingResult.hasErrors()) {
+            return "/new";
+        }
         userService.saveUser(user);
         return "redirect:/admin";
     }

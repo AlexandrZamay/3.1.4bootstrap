@@ -1,5 +1,7 @@
 package ru.kata.spring.boot_security.demo.Model;
-
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -38,27 +40,30 @@ public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column (name = "id")
+    @Column(name = "id")
     private long id;
 
-    @Column (name = "name")
+    @Column(name = "name")
     private String name;
-
-    @Column (name = "email")
+    @Email(message = "Указана некорректная почта!")
+    @Column(name = "email")
     private String email;
-    @Column (name = "yearOfBirth")
+    @Column(name = "yearOfBirth")
     private int yearOfBirth;
 
-    @Column (name = "username")
+    @Column(name = "username", unique = true, nullable = false)
+    @NotNull
+    @Size(min = 5, max = 40, message = "Размер должен быть от 5 до 40 символов")
     private String username;
 
-    @Column (name = "password")
+    @Column(name = "password")
     private String password;
 
     @ManyToMany(fetch = FetchType.LAZY)
     private Set<Role> roles;
 
-    public User() {}
+    public User() {
+    }
 
     public User(long id, String name, String email, int yearOfBirth, String username, String password) {
         this.id = id;
