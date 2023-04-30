@@ -9,6 +9,8 @@
   <title>Edit User</title>
 </head>
 <body>
+<input type="button" onclick="history.back();" value="Назад"/>
+<p/>
 
 <form th:method="PATCH" th:action="@{/admin/{id}(id=${user.getId()})}" th:object="${user}">
   <label for="name">Enter name: </label>
@@ -36,8 +38,13 @@
 
   <p></p>
 
-  <label for="role">Select Role: </label>
-  <input type="text" th:field="*{roles}" id="role"/>
+  <label>Select Role: </label>
+  <select th:field="*{roles}">
+    <option th:value="'2'" th:text="Admin"></option>
+    <option th:value="'1'" th:text="User"></option>
+  </select>
+
+
   <br/>
   <input type="submit" value="Edit"/>
 </form>

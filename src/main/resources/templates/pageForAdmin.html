@@ -10,6 +10,8 @@
 <p th:text = "'Year Of Birth: ' + ${user.getYearOfBirth()}">TEXT</p>
 <p th:text = "'E-Mail adress: ' + ${user.getEmail()}">TEXT</p>
 <p th:text = "'Username: ' + ${user.getUsername()}">TEXT</p>
+<p th:text = "'Role: ' + ${user.getRoles()}">TEXT</p>
+
 <hr/>
 <a th:href ="@{/admin/{id}/edit(id=${user.getId()})}">Edit</a>
 <hr/>

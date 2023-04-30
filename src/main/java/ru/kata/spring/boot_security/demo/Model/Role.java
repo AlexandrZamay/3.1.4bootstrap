@@ -9,8 +9,8 @@ import java.util.Set;
 public class Role implements GrantedAuthority {
     @Id
     private Long id;
-
-    private String name; //шаблон: "ROLE_USER"
+    @Column(name = "name", unique = true)
+    private String name;
     @Transient
     @ManyToMany(mappedBy = "roles")
     private Set<User> users;
@@ -54,5 +54,10 @@ public class Role implements GrantedAuthority {
     @Override
     public String getAuthority() {
         return getName();
+    }
+
+    @Override
+    public String toString() {
+        return name.replace("ROLE_", "");
     }
 }
