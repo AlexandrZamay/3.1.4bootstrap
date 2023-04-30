@@ -1,9 +1,9 @@
-package ru.kata.spring.boot_security.demo.Service;
+package ru.kata.spring.boot_security.demo.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.kata.spring.boot_security.demo.Model.Role;
-import ru.kata.spring.boot_security.demo.Repositories.RoleRepository;
+import ru.kata.spring.boot_security.demo.models.Role;
+import ru.kata.spring.boot_security.demo.repositories.RoleRepository;
 
 @Service
 public class RoleServiceImpl implements RoleService {

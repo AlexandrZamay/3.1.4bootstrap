@@ -1,4 +1,4 @@
-package ru.kata.spring.boot_security.demo.Model;
+package ru.kata.spring.boot_security.demo.models;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -17,27 +17,6 @@ public class User implements UserDetails {
         return roles;
     }
 
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -45,9 +24,11 @@ public class User implements UserDetails {
 
     @Column(name = "name")
     private String name;
+
     @Email(message = "Указана некорректная почта!")
     @Column(name = "email")
     private String email;
+
     @Column(name = "yearOfBirth")
     private int yearOfBirth;
 
@@ -140,6 +121,26 @@ public class User implements UserDetails {
 
     public void setYearOfBirth(int salary) {
         this.yearOfBirth = salary;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 
     @Override
