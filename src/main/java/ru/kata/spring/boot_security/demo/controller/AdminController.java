@@ -22,6 +22,7 @@ public class AdminController {
         this.userService = userService;
         this.userValidator = userValidator;
     }
+
     @GetMapping()
     public String userList(Model model) {
         model.addAttribute("users", userService.getAllUsers());
@@ -30,7 +31,7 @@ public class AdminController {
 
 
     @GetMapping("/{id}")
-    public String show(@PathVariable("id")int id, Model model) {
+    public String show(@PathVariable("id") int id, Model model) {
 
         model.addAttribute("user", userService.getUser(id));
         return "pageForAdmin";
@@ -44,13 +45,13 @@ public class AdminController {
     }
 
     @PatchMapping("/{id}")
-    public String update(@ModelAttribute("user")User user, @PathVariable("id") int id) {
+    public String update(@ModelAttribute("user") User user, @PathVariable("id") int id) {
         userService.update(id, user);
         return "redirect:/admin";
     }
 
     @DeleteMapping("/{id}")
-    public String delete(@PathVariable("id")Long id) {
+    public String delete(@PathVariable("id") Long id) {
         userService.delete(id);
         return "redirect:/admin";
     }
@@ -62,7 +63,7 @@ public class AdminController {
     }
 
     @PostMapping()
-    public String create(@ModelAttribute ("user")@Valid User user, BindingResult bindingResult, Model model) {
+    public String create(@ModelAttribute("user") @Valid User user, BindingResult bindingResult, Model model) {
         userValidator.validate(user, bindingResult);
         if (bindingResult.hasErrors()) {
             return "/new";

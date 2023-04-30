@@ -8,13 +8,13 @@ import java.util.List;
 
 
 public interface UserService {
-    public boolean saveUser(User user);
+    boolean saveUser(User user);
 
-    public User getUser(long id);
+    User getUser(long id);
 
-    public List<User> getAllUsers();
+    List<User> getAllUsers();
 
-    public void delete(long id);
+    void delete(long id);
 
-    public void update(long id, User editedUser);
+    void update(long id, User editedUser);
 }

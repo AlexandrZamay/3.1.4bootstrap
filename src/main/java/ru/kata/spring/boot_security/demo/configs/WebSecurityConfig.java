@@ -17,13 +17,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final UserDetailsServ userDetailsServ;
     private final SuccessUserHandler successUserHandler;
     private PasswordEncoder passwordEncoder;
+
     @Autowired
     public WebSecurityConfig(SuccessUserHandler successUserHandler, UserDetailsServ userDetailsServ) {
         this.successUserHandler = successUserHandler;
         this.userDetailsServ = userDetailsServ;
-
-
     }
+
     @Bean
     public PasswordEncoder getPasswordEncoder() {
         if (passwordEncoder == null) {
@@ -34,33 +34,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
         http.authorizeRequests()
                 .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/user/**").hasAnyRole("USER", "ADMIN")
-                .antMatchers("/**").permitAll()
+                .antMatchers("/user").hasAnyRole("USER", "ADMIN")
+                //.antMatchers("/**").permitAll()
+                .anyRequest().authenticated()
                 .and()
                 .formLogin().successHandler(successUserHandler)
                 .permitAll()
                 .and()
                 .logout()
                 .permitAll();
-//        http
-//                .authorizeRequests()
-//                .antMatchers("/", "/index").permitAll()
-//                .anyRequest().authenticated()
-//                .and()
-//                .formLogin().successHandler(successUserHandler)
-//                .permitAll()
-//                .and()
-//                .logout()
-//                .permitAll();
     }
 
-
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {  //вызов метода внутри класса? ты что угашенный?
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsServ).
                 passwordEncoder(getPasswordEncoder());
     }
-
-
 }

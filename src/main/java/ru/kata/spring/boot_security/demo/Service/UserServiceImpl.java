@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.Model.Role;
 import ru.kata.spring.boot_security.demo.Model.User;
 import ru.kata.spring.boot_security.demo.Repositories.UserRepository;
+
 import java.util.List;
 import java.util.Set;
 
@@ -70,7 +71,6 @@ public class UserServiceImpl  implements  UserService {
         editedUser.setRoles(existRole);
         userRepository.save(editedUser);
     }
-
 }
 
 
