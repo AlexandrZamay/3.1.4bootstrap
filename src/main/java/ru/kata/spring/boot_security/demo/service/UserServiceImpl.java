@@ -12,8 +12,6 @@ import ru.kata.spring.boot_security.demo.repositories.UserRepository;
 import java.util.List;
 import java.util.Set;
 
-import static org.apache.tomcat.jni.SSL.setPassword;
-
 @Service
 @Transactional(readOnly = true)
 public class UserServiceImpl  implements  UserService {
