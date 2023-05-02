@@ -12,6 +12,8 @@ import ru.kata.spring.boot_security.demo.repositories.UserRepository;
 import java.util.List;
 import java.util.Set;
 
+import static org.apache.tomcat.jni.SSL.setPassword;
+
 @Service
 @Transactional(readOnly = true)
 public class UserServiceImpl  implements  UserService {
@@ -58,6 +60,16 @@ public class UserServiceImpl  implements  UserService {
     @Transactional
     @Override
     public void update(long id, User editedUser) {
+//        User user = new User();
+//        user.setId(id);
+//        user.setRoles(editedUser.getRoles());
+//        user.setName(editedUser.getName());
+//        user.setEmail(editedUser.getEmail());
+//        user.setUsername(editedUser.getUsername());
+//        user.setYearOfBirth(editedUser.getYearOfBirth());
+//        user.setPassword(passwordEncoder.encode(editedUser.getPassword()));
+
+
         editedUser.setId(id);
         editedUser.setPassword(passwordEncoder.encode(editedUser.getPassword())); //TODO вынести encoder в отдельный метод
         User user = getUser(id);

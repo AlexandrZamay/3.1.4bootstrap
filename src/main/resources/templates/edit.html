@@ -34,14 +34,17 @@
   <p></p>
 
   <label for="password">Edit Password: </label>
-  <input type="password" th:field="*{password}" id="password" required/>
+  <input type="password" th:field="*{password}" id="password" th:value="${user.getPassword()}" required/>
 
   <p></p>
 
   <label>Select Role: </label>
-  <select th:field="*{roles}">
-    <option th:value="'2'" th:text="Admin"></option>
-    <option th:value="'1'" th:text="User"></option>
+
+  <select th:field="*{roles}" th:multiple="multiple">
+    <option th:each="role : ${roles}"
+                  th:text="${role.getAuthority()}"
+                  th:value="${role.getId()}"
+                  th:selected="${user.getRoles().contains(role)}"></option>
   </select>
 
 
