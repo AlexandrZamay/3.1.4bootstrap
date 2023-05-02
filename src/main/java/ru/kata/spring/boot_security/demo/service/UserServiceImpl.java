@@ -13,17 +13,16 @@ import java.util.List;
 import java.util.Set;
 
 @Service
+@Transactional(readOnly = true)
 public class UserServiceImpl  implements  UserService {
 
-    private final RoleServiceImpl roleService;
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, RoleServiceImpl roleService) {
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
-        this.roleService = roleService;
     }
 
     @Transactional
@@ -39,13 +38,12 @@ public class UserServiceImpl  implements  UserService {
         return true;
     }
 
-    @Transactional
     @Override
     public User getUser(long id) {
         return userRepository.findById(id).orElse(null);
     }
 
-    @Transactional
+
     @Override
     public List<User> getAllUsers() {
         return userRepository.findAll();
