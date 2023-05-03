@@ -37,10 +37,10 @@
 <!--  <input type="password" th:field="*{password}" id="password" th:value="${user.getPassword()}"/>-->
 
 <!--  <p></p>-->
-
+  <br/>
   <label>Select Role: </label>
 
-  <select th:field="*{roles}" th:multiple="multiple">
+  <select th:field="*{roles}" th:multiple="multiple" th:size="${roles.size()}">
     <option th:each="role : ${roles}"
                   th:text="${role.getAuthority()}"
                   th:value="${role.getId()}"

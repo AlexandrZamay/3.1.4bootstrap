@@ -32,10 +32,11 @@
   <input type="text" th:field="*{password}" id="password" required/>
 
   <br/>
-
-  <select th:field="*{roles}">
-    <option th:value="'2'" th:text="Admin"></option>
-    <option th:value="'1'" th:text="User"></option>
+  <label>Select Role: </label>
+  <select th:field="*{roles}" th:multiple="multiple" th:size="${roles.size()}" required>
+    <option th:each="role : ${roles}"
+            th:text="${role.getAuthority()}"
+            th:value="${role.getId()}"></option>
   </select>
 
   <br/>
