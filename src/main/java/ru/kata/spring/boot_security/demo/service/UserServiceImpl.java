@@ -66,10 +66,14 @@ public class UserServiceImpl  implements  UserService {
 //        user.setUsername(editedUser.getUsername());
 //        user.setYearOfBirth(editedUser.getYearOfBirth());
 //        user.setPassword(passwordEncoder.encode(editedUser.getPassword()));
-
+//        user.setRoles(editedUser.getRoles());
+//        userRepository.save(user);
+//    }
+//}
 
         editedUser.setId(id);
-        editedUser.setPassword(passwordEncoder.encode(editedUser.getPassword())); //TODO вынести encoder в отдельный метод
+        editedUser.setPassword(userRepository.getById(id).getPassword());
+        //TODO вынести encoder в отдельный метод
         User user = getUser(id);
         Set<Role> existRole = user.getRoles();
         Set<Role> newRole = editedUser.getRoles();
