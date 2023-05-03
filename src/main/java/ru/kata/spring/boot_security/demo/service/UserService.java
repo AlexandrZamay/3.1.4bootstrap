@@ -10,11 +10,11 @@ import java.util.List;
 public interface UserService {
     boolean saveUser(User user);
 
-    User getUser(long id);
+    User getUser(Long id);
 
     List<User> getAllUsers();
 
-    void delete(long id);
+    void delete(Long id);
 
-    void update(long id, User editedUser);
+    void update(Long id, User editedUser);
 }

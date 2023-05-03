@@ -39,7 +39,7 @@ public class UserServiceImpl  implements  UserService {
     }
 
     @Override
-    public User getUser(long id) {
+    public User getUser(Long id) {
         return userRepository.findById(id).orElse(null);
     }
 
@@ -51,38 +51,16 @@ public class UserServiceImpl  implements  UserService {
 
     @Transactional
     @Override
-    public void delete(long id) {
+    public void delete(Long id) {
         userRepository.deleteById(id);
     }
 
     @Transactional
     @Override
-    public void update(long id, User editedUser) {
-//        User user = new User();
-//        user.setId(id);
-//        user.setRoles(editedUser.getRoles());
-//        user.setName(editedUser.getName());
-//        user.setEmail(editedUser.getEmail());
-//        user.setUsername(editedUser.getUsername());
-//        user.setYearOfBirth(editedUser.getYearOfBirth());
-//        user.setPassword(passwordEncoder.encode(editedUser.getPassword()));
-//        user.setRoles(editedUser.getRoles());
-//        userRepository.save(user);
-//    }
-//}
-
+    public void update(Long id, User editedUser) {
         editedUser.setId(id);
         editedUser.setPassword(userRepository.getById(id).getPassword());
-        //TODO вынести encoder в отдельный метод
-        User user = getUser(id);
-        Set<Role> existRole = user.getRoles();
-        Set<Role> newRole = editedUser.getRoles();
-        if (!existRole.containsAll(newRole)) {
-            existRole.addAll(newRole);
-        }
-        editedUser.setRoles(existRole);
         userRepository.save(editedUser);
     }
 }
-
 
