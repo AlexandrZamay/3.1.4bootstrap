@@ -1,25 +1,113 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <title>User Page</title>
 </head>
 <body>
-<p th:text = "'ID: ' + ${user.getId()}">TEXT</p>
-<p th:text = "'Name: ' + ${user.getName()}">TEXT</p>
-<p th:text = "'Year Of Birth: ' + ${user.getYearOfBirth()}">TEXT</p>
-<p th:text = "'E-Mail adress: ' + ${user.getEmail()}">TEXT</p>
-<p th:text = "'Username: ' + ${user.getUsername()}">TEXT</p>
-<hr/>
-</form>
+<!--HEAD BAR-->
+<header class="p-1 bg-dark text-white" >
+<div class="container ">
+    <div class=" d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+        <a href="/static" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+            <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
+        </a>
 
-<p/>
-<hr/>
-<form th:method="GET" th:action="@{/logout}">
-  <input type="submit" value="*LOGOUT*"/>
-</form>
+        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+            <b><li><span class="nav-link px-2 text-white" th:text="${user.getEmail()}">EMAIL</span></li></b>
+            <li><span class="nav-link px-2 text-white" th:text=" ${'with roles: ' + user.showRoles()}">with roles:</span></li>
+        </ul>
 
 
+
+        <div class="text-end"  >
+            <form th:action="@{/logout}" method="POST">
+            <button type="submit" class="btn btn-outline-light me-2 text-secondary">Logout</button>
+            </form>
+        </div>
+    </div>
+</div>
+</header>
+<!--SIDEBAR-->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-2" >
+<!--<div class=" container-fluid d-flex flex-column flex-shrink-0 p-3 bg-light vh-100">-->
+
+    <ul class="nav nav-pills flex-column mb-auto p-3 gy-0 ">
+        <li class="nav-item">
+            <a href="#" class="nav-link active" aria-current="page">
+                <svg class="bi me-2" width="16" height="16"></svg>
+                ADMIN
+            </a>
+        </li>
+        <li>
+            <a href="#" class="nav-link link-dark">
+                <svg class="bi me-2" width="16" height="16"></svg>
+                USER
+            </a>
+        </li>
+
+    </ul>
+<!--    </div>-->
+<!--              TABLE               -->
+</div>
+        <div class="col-10 bg-secondary bg-opacity-10 vh-100">
+            <div class="d-flex">
+                    <div class="container mt-3 col-sm-11">
+                        <h1>User information-Page</h1>
+                        <br>
+                        <div class="tab-content">
+                            <div id="home" class="tab-pane active bg-white ml-0 mr-0 p-0 border">
+                                <nav class="navbar navbar-default bg-light mr-0 ml-0 border">
+                                    <div class="container-fluid">
+                                        <div class="navbar-header">
+                                            <a class="navbar-brand disables text-dark text-style-bold" href="#">About user</a>
+                                        </div>
+                                    </div>
+                                </nav>
+                                <div class="m-4">
+                                    <table class="table table-striped border">
+                                        <thead>
+                                        <tr>
+                                            <th> ID </th>
+                                            <th> Name </th>
+                                            <th> UserName </th>
+                                            <th> Year </th>
+                                            <th> Email </th>
+                                            <th> Role </th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td><span th:text="${user.id}"> model </span></td>
+                                            <td><span th:text="${user.name}"> series </span></td>
+                                            <td><span th:text="${user.username}"> series </span></td>
+                                            <td><span th:text="${user.yearOfBirth}"> series </span></td>
+                                            <td><span th:text="${user.username}"> series </span></td>
+                                            <td><span th:text="${user.showRoles()}"> series </span></td>
+
+                                        </tr>
+                                        </tbody>
+
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+</div>
+</div>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js" integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js" integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ" crossorigin="anonymous"></script>
 </body>
 </html>
-
