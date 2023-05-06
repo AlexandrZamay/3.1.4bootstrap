@@ -18,19 +18,16 @@ public class User implements UserDetails {
     @Column(name = "id")
     private long id;
 
-    @Column(name = "name")
-    private String name;
-
     @Email(message = "Указана некорректная почта!")
     @Column(name = "email")
     private String email;
 
-    @Column(name = "yearOfBirth")
-    private int yearOfBirth;
+    @Column(name = "age")
+    private int age;
 
     @Column(name = "username", unique = true, nullable = false)
     @NotNull
-    @Size(min = 5, max = 40, message = "Размер должен быть от 5 до 40 символов")
+    @Size(min = 4, max = 40, message = "Размер должен быть от 5 до 40 символов")
     private String username;
 
     @Column(name = "password")
@@ -45,19 +42,17 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(long id, String name, String email, int yearOfBirth, String username, String password) {
+    public User(long id,  String email, int age, String username, String password) {
         this.id = id;
-        this.name = name;
         this.email = email;
-        this.yearOfBirth = yearOfBirth;
+        this.age = age;
         this.username = username;
         this.password = password;
     }
 
-    public User(String name, String email, int yearOfBirth, String username, String password, Set<Role> roles) {
-        this.name = name;
+    public User(String email, int age, String username, String password, Set<Role> roles) {
         this.email = email;
-        this.yearOfBirth = yearOfBirth;
+        this.age = age;
         this.username = username;
         this.password = password;
         this.roles = roles;
@@ -95,13 +90,9 @@ public class User implements UserDetails {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+
+
 
     public String getEmail() {
         return email;
@@ -111,12 +102,12 @@ public class User implements UserDetails {
         this.email = email;
     }
 
-    public int getYearOfBirth() {
-        return yearOfBirth;
+    public int getAge() {
+        return age;
     }
 
-    public void setYearOfBirth(int salary) {
-        this.yearOfBirth = salary;
+    public void setAge(int age) {
+        this.age = age;
     }
 
     @Override
@@ -144,13 +135,18 @@ public class User implements UserDetails {
         return true;
     }
 
+    public String showRoles() {
+        StringBuilder stringBuilder = new StringBuilder();
+        getRoles().forEach(x -> stringBuilder.append(x).append(" "));
+        return stringBuilder.toString();
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
-                ", salary=" + yearOfBirth +
+                ", salary=" + age +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 '}';

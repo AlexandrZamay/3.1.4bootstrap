@@ -91,7 +91,7 @@
                                                         <th>ID</th>
                                                         <th>Username</th>
                                                         <th>Age</th>
-                                                        <th>Position</th>
+                                                        <th>Email</th>
                                                         <th>Roles</th>
                                                         <th>Edit</th>
                                                         <th>Delete</th>
@@ -101,8 +101,8 @@
                                                     <tr th:each="user : ${users}">
                                                         <td th:text="${user.getId()}">Id</td>
                                                         <td th:text="${user.getUsername()}">Username</td>
-                                                        <td th:text="${user.getAge()}">Age</td>
-                                                        <td th:text="${user.getPosition()}">Position</td>
+                                                        <td th:text="${user.getAge()}">Year</td>
+                                                        <td th:text="${user.getEmail()}">Email</td>
                                                         <td th:text="${user.showRoles()}">Roles</td>
                                                         <td>
                                                             <!-- Button trigger modal -->
@@ -155,21 +155,21 @@
                                                                                         <div class="mb-2">
                                                                                             <label for="age-edit"
                                                                                                    class="form-label">Age</label>
-                                                                                            <input type="number" step="1" min="18" max="100"
+                                                                                            <input type="number" step="1" min="10" max="100"
                                                                                                    class="form-control"
                                                                                                    name="age"
                                                                                                    id="age-edit"
                                                                                                    th:value="*{age}" required>
                                                                                         </div>
                                                                                         <div class="mb-2">
-                                                                                            <label for="position-edit"
-                                                                                                   class="form-label">Position</label>
+                                                                                            <label for="email-edit"
+                                                                                                   class="form-label">Email</label>
                                                                                             <input type="text"
                                                                                                    class="form-control"
-                                                                                                   name="position"
-                                                                                                   id="position-edit"
-                                                                                                   maxlength="25"
-                                                                                                   th:value="*{position}">
+                                                                                                   name="email"
+                                                                                                   id="email-edit"
+                                                                                                   maxlength="30"
+                                                                                                   th:value="*{email}">
                                                                                         </div>
                                                                                         <div class="mb-2">
                                                                                             <label for="password-edit"
@@ -182,9 +182,11 @@
                                                                                         </div>
                                                                                         <div class="mb-2">
                                                                                             <label class="form-label">Role</label>
-                                                                                            <select class="form-select" size="2" name="roles" aria-label="select role" required>
-                                                                                                <option selected value="1">User</option>
-                                                                                                <option value="1, 2">Admin</option>
+                                                                                            <select class="form-select" th:size="${roles.size()}" name="roles" aria-label="select role" required>
+                                                                                                <option th:each="role : ${roles}"
+                                                                                                        th:text="${role.getAuthority()}"
+                                                                                                        th:value="${role.getId()}">
+                                                                                                </option>
                                                                                             </select>
                                                                                         </div>
                                                                                     </div>
@@ -209,11 +211,11 @@
                                                         <td><!-- Button trigger modal -->
                                                             <button type="button" class="btn btn-danger btn-sm"
                                                                     data-bs-toggle="modal"
-                                                                    th:data-bs-target="${'#deleteUser'+user.id}">
+                                                                    th:data-bs-target="${'#deleteUser'+ user.id}">
                                                                 Delete
                                                             </button>
                                                             <!-- Modal DELETE -->
-                                                            <div class="modal fade" th:id="${'deleteUser'+user.id}"
+                                                            <div class="modal fade" th:id="${'deleteUser'+ user.id}"
                                                                  tabindex="-1" aria-labelledby="DeleteUserLabel"
                                                                  aria-hidden="true">
                                                                 <div class="modal-dialog">
@@ -263,13 +265,13 @@
                                                                                                    disabled>
                                                                                         </div>
                                                                                         <div class="mb-2">
-                                                                                            <label for="position-delete"
-                                                                                                   class="form-label">Position</label>
+                                                                                            <label for="email-delete"
+                                                                                                   class="form-label">Email</label>
                                                                                             <input type="text"
                                                                                                    class="form-control"
-                                                                                                   name="position"
-                                                                                                   id="position-delete"
-                                                                                                   th:value="*{position}"
+                                                                                                   name="email"
+                                                                                                   id="email-delete"
+                                                                                                   th:value="*{email}"
                                                                                                    disabled>
                                                                                         </div>
                                                                                         <div class="mb-2">
@@ -321,13 +323,13 @@
                                             </div>
                                             <div class="mb-2">
                                                 <label for="age-new" class="form-label">Age</label>
-                                                <input type="number" step="1" min="18" max="100" value="18" class="form-control" name="age" id="age-new" required>
+                                                <input type="number" step="1" min="10" max="100" value="18" class="form-control" name="age" id="age-new" required>
                                             </div>
                                             <div class="mb-2">
-                                                <label for="position-new" class="form-label">Position</label>
-                                                <input type="text" class="form-control" name="position"
+                                                <label for="email-new" class="form-label">Email</label>
+                                                <input type="text" class="form-control" name="email"
                                                        maxlength="25"
-                                                       id="position-new">
+                                                       id="email-new">
                                             </div>
                                             <div class="mb-2">
                                                 <label for="password-new" class="form-label">Password</label>

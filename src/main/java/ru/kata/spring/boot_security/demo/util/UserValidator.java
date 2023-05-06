@@ -25,8 +25,9 @@ public class UserValidator implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         User user = (User) target;
+        Long id = user.getId();
         Optional<User> userToFind = Optional.ofNullable(userRepository.findByUsername(user.getUsername()));
-        if (userToFind.isPresent()) {
+        if (userToFind.isPresent() && (id == 0 || id != userToFind.get().getId())) {
             errors.rejectValue("username", "1", "THIS USERNAME IS ALREADY EXIST");
         }
 
